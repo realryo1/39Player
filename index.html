@@ -24,9 +24,9 @@
         <div id="player" style="display: none"></div>
         <img src="kari.png" class="miku">
         <div>
-            <input type="range" id="seek-bar" min="0" max="0" value="0" oninput="seekTo()">
-            <label id="time-label">0:00 / 0:00</label>
             <button id="play-pause-button" onclick="togglePlayPause()">再生</button>
+            <input type="range" id="seek-bar" value="0" step="1" min="0" max="100" oninput="seekTo()">
+            <span id="current-time">0:00</span> / <span id="duration">0:00</span>
         </div>
     </div>
 </body>

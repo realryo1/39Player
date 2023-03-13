@@ -34,6 +34,15 @@ function onPlayerReady(event) {
     // 再生・停止ボタンをクリックしたときに動画を再生・停止する関数を設定する
     var playPauseButton = document.getElementById("play-pause-button");
     playPauseButton.addEventListener("click", togglePlayPause);
+
+    // 動画の総再生時間を表示する
+    var durationSpan = document.getElementById("duration");
+    var durationMinutes = Math.floor(duration / 60);
+    var durationSeconds = Math.floor(duration % 60);
+    if (durationSeconds < 10) {
+        durationSeconds = "0" + durationSeconds;
+    }
+    durationSpan.textContent = durationMinutes + ":" + durationSeconds;
 }
 
 // プレイヤーの状態が変更されたときに呼び出される関数
@@ -44,17 +53,18 @@ function onPlayerStateChange(event) {
             var currentTime = player.getCurrentTime();
             var seekBar = document.getElementById("seek-bar");
             seekBar.value = currentTime;
+
+            // 再生時間を表示する
+            var currentTimeSpan = document.getElementById("current-time");
+            var currentMinutes = Math.floor(currentTime / 60);
+            var currentSeconds = Math.floor(currentTime % 60);
+            if (currentSeconds < 10) {
+                currentSeconds = "0" + currentSeconds;
+            }
+            currentTimeSpan.textContent = currentMinutes + ":" + currentSeconds;
         }, 1000);
     }
 }
-
-// シークバーが変更されたときに呼び出される関数
-function seekTo() {
-    var seekBar = document.getElementById("seek-bar");
-    var time = seekBar.value;
-    player.seekTo(time);
-}
-
 // 再生・停止ボタンがクリックされたときに呼び出される関数
 function togglePlayPause() {
     var playPauseButton = document.getElementById("play-pause-button");
@@ -70,4 +80,11 @@ function togglePlayPause() {
         }, 1000);
         playPauseButton.textContent = "停止";
     }
+}
+
+// シークバーが変更されたときに呼び出される関数
+function seekTo() {
+    var seekBar = document.getElementById("seek-bar");
+    var time = seekBar.value;
+    player.seekTo(time);
 }
