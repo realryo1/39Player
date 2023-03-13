@@ -1,4 +1,13 @@
-#all {
-  max-width: 80%;
+body {
   text-align: center;
+  padding: 16.5%;
+}
+
+#all {
+  max-width: 390px;
+  margin: auto;
+}
+
+.miku {
+  width: 100%;
 }
