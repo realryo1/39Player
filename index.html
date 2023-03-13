@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="shortcut icon" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="gpt.js"></script>
     <meta property="og:title" content="39Player">
     <meta property="og:description" content="mikumikuplaylist">
     <meta property="og:url" content="https://realryo1.github.io/39Player/">
@@ -19,7 +21,13 @@
 
 <body>
     <div id="all">
+        <div id="player" style="display: none"></div>
         <img src="kari.png" class="miku">
+        <div>
+            <input type="range" id="seek-bar" min="0" max="0" value="0" oninput="seekTo()">
+            <label id="time-label">0:00 / 0:00</label>
+            <button id="play-pause-button" onclick="togglePlayPause()">再生</button>
+        </div>
     </div>
 </body>
 
