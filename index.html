@@ -29,8 +29,10 @@
         <img src="kari.png" id="miku">
         <input type="range" id="seek-bar" value="0" step="1" min="0" max="100" oninput="seekTo()">
         <div><span id="current-time">0:00</span><span id="duration">0:00</span></div>
-        <div>
+        <div id="control">
+            <button id="prev-button">⏮️</button>
             <button id="play-pause-button" onclick="togglePlayPause()">再生</button>
+            <button id="next-button">⏭️</button>
         </div>
     </div>
 </body>

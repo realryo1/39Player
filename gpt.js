@@ -1,5 +1,6 @@
 // YouTubeの動画IDを設定する
-var videoId = "PqJNc9KVIZE";
+// var videoId = '-N5XNRNhdcA';
+var playlist = '-N5XNRNhdcA,o1jAMSQyVPc';
 
 // YouTubeのIFrame Player APIを非同期で読み込む
 var tag = document.createElement("script");
@@ -13,8 +14,9 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player("player", {
         height: '100%',
         width: '100%',
-        videoId: videoId,
+        //videoId: videoId,
         playerVars: {
+            playlist: playlist,
             disablekb: 1,
             controls: 0,
             modestbranding: 1,
@@ -46,11 +48,24 @@ function onPlayerReady(event) {
         durationSeconds = "0" + durationSeconds;
     }
     durationSpan.textContent = durationMinutes + ":" + durationSeconds;
+
+    // 前の曲へボタンをクリックしたときに前の動画を再生する関数を設定する
+    var prevButton = document.getElementById("prev-button");
+    prevButton.addEventListener("click", playPreviousVideo);
+
+    // 次の曲へ飛ぶボタンをクリックしたときに呼び出される関数
+    function nextVideo() {
+        player.nextVideo();
+    }
+
+    // 次の曲へ飛ぶボタンを設定する
+    var nextButton = document.getElementById("next-button");
+    nextButton.addEventListener("click", nextVideo);
+
 }
 
 // プレイヤーの状態が変更されたときに呼び出される関数
 function onPlayerStateChange(event) {
-    // 動画が再生中の場合、シークバーの値を更新する
     if (event.data == YT.PlayerState.PLAYING) {
         setInterval(function () {
             var currentTime = player.getCurrentTime();
@@ -65,9 +80,24 @@ function onPlayerStateChange(event) {
                 currentSeconds = "0" + currentSeconds;
             }
             currentTimeSpan.textContent = currentMinutes + ":" + currentSeconds;
+
+            // 現在の動画の長さを取得して、シークバーの最大値を設定する
+            var duration = player.getDuration();
+            var seekBar = document.getElementById("seek-bar");
+            seekBar.max = duration;
+
+            // 動画の総再生時間を表示する
+            var durationSpan = document.getElementById("duration");
+            var durationMinutes = Math.floor(duration / 60);
+            var durationSeconds = Math.floor(duration % 60);
+            if (durationSeconds < 10) {
+                durationSeconds = "0" + durationSeconds;
+            }
+            durationSpan.textContent = durationMinutes + ":" + durationSeconds;
         }, 1000);
     }
 }
+
 // 再生・停止ボタンがクリックされたときに呼び出される関数
 function togglePlayPause() {
     var playPauseButton = document.getElementById("play-pause-button");
@@ -90,4 +120,14 @@ function seekTo() {
     var seekBar = document.getElementById("seek-bar");
     var time = seekBar.value;
     player.seekTo(time);
+}
+
+// 前の曲へ戻るボタンをクリックしたときに呼び出される関数
+function playPreviousVideo() {
+    var currentPlaylistIndex = player.getPlaylistIndex();
+    if (currentPlaylistIndex == 0) {
+        player.loadPlaylist(playlist, playlist.length - 1);
+    } else {
+        player.previousVideo();
+    }
 }

@@ -52,7 +52,7 @@ body {
   float: right;
 }
 
-#play-pause-button {
-  display: block;
+#control {
   margin: 30px auto;
+  text-align: center;
 }
