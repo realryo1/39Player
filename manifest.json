@@ -1,0 +1,14 @@
+{
+    "name": "39PLAYER",
+    "short_name": "39PLAYER",
+    "start_url": ".",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "/img/icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
